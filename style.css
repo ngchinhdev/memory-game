@@ -4,12 +4,14 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
 body {
   background-color: #f4c531;
 }
+
 .wrapper {
   box-sizing: content-box;
-  width: 26.87em;
+  /* width: 26.87em; */
   padding: 2.5em 3em;
   background-color: #ffffff;
   position: absolute;
@@ -19,25 +21,30 @@ body {
   border-radius: 0.6em;
   box-shadow: 0 0.9em 2.8em rgba(86, 66, 0, 0.2);
 }
+
 .game-container {
   position: relative;
   width: 100%;
   display: grid;
   gap: 0.6em;
 }
+
 .stats-container {
   text-align: right;
   margin-bottom: 1.2em;
 }
+
 .stats-container span {
   font-weight: 600;
 }
+
 .card-container {
   position: relative;
   width: 6.25em;
   height: 6.25em;
   cursor: pointer;
 }
+
 .card-before,
 .card-after {
   position: absolute;
@@ -51,21 +58,26 @@ body {
   transition: transform 0.7s ease-out;
   backface-visibility: hidden;
 }
+
 .card-before {
   background-color: #f4c531;
   font-size: 2.8em;
   font-weight: 600;
 }
+
 .card-after {
   background-color: #ffffff;
   transform: rotateY(180deg);
 }
+
 .card-container.flipped .card-before {
   transform: rotateY(180deg);
 }
+
 .card-container.flipped .card-after {
   transform: rotateY(0deg);
 }
+
 .controls-container {
   position: absolute;
   display: flex;
@@ -77,12 +89,14 @@ body {
   background-color: #f4c531;
   top: 0;
 }
+
 button {
   border: none;
   border-radius: 0.3em;
   padding: 1em 1.5em;
   cursor: pointer;
 }
+
 #stop {
   font-size: 1.1em;
   display: block;
@@ -90,20 +104,30 @@ button {
   background-color: #000000;
   color: #ffffff;
 }
+
 .controls-container button {
   font-size: 1.3em;
   box-shadow: 0 0.6em 2em rgba(86, 66, 0, 0.2);
 }
+
 .hide {
   display: none;
 }
+
 #result {
   text-align: center;
 }
+
 #result h2 {
   font-size: 2.5em;
 }
+
 #result h4 {
   font-size: 1.8em;
   margin: 0.6em 0 1em 0;
+}
+
+img {
+  width: 70%;
+  height: 70%;
 }
