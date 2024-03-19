@@ -70,7 +70,7 @@ const generateRandom = () => {
   //Initializes cardValues array
   let cardValues = [];
   //Size should be double (4*4 matrix)/2 since pairs of objects would exist
-  size = (23 * 4) / 2;
+  size = (16 * 4) / 2;
   //Random object selection
   for (let i = 0; i < size; i++) {
     const randomIndex = Math.floor(Math.random() * tempArray.length);
@@ -87,7 +87,7 @@ const matrixGenerator = (cardValues) => {
   cardValues = [...cardValues, ...cardValues];
   //Simple shuffle
   cardValues.sort(() => Math.random() - 0.5);
-  for (let i = 0; i < 44; i++) {
+  for (let i = 0; i < 32; i++) {
     console.log(cardValues[i]);
     /*
         Create Cards
@@ -104,7 +104,7 @@ const matrixGenerator = (cardValues) => {
      `;
   }
   //Grid
-  gameContainer.style.gridTemplateColumns = `repeat(${11},auto)`;
+  gameContainer.style.gridTemplateColumns = `repeat(${8},auto)`;
 
   //Cards
   cards = document.querySelectorAll(".card-container");
