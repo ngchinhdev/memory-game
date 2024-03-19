@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap");
+
 * {
   padding: 0;
   margin: 0;
@@ -86,8 +88,57 @@ body {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background-color: #f4c531;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   top: 0;
+  background-size: 300% 300%;
+  animation: changeColor 10s ease infinite;
+}
+
+@keyframes changeColor {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.wrap-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 70px;
+  gap: 20px;
+}
+
+.wrap-action .wrap-image {
+  width: 225px;
+  height: 225px;
+  border: 3px solid white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.wrap-action .wrap-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes changeColor {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }
 
 button {
@@ -103,11 +154,6 @@ button {
   margin: 1.1em auto 0 auto;
   background-color: #000000;
   color: #ffffff;
-}
-
-.controls-container button {
-  font-size: 1.3em;
-  box-shadow: 0 0.6em 2em rgba(86, 66, 0, 0.2);
 }
 
 .hide {
@@ -130,4 +176,132 @@ button {
 img {
   width: 70%;
   height: 70%;
+}
+
+.controls-container button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0px 20px;
+  color: white;
+  text-shadow: 2px 2px rgb(116, 116, 116);
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 2px solid white;
+  letter-spacing: 1px;
+  font-weight: 600;
+  font-size: 40px;
+  background-color: hsl(49deg 98% 60%);
+  border-radius: 50px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: scale 0.3s infinite alternate linear;
+}
+
+.controls-container button:active {
+  transform: scale(0.9);
+  transition: all 100ms ease;
+}
+
+.controls-container button svg {
+  transition: all 0.5s ease;
+  z-index: 2;
+}
+
+.controls-container .play {
+  transition: all 0.5s ease;
+  transition-delay: 300ms;
+}
+
+.controls-container button:hover svg {
+  transform: scale(3) translate(50%);
+}
+
+.controls-container .now {
+  position: absolute;
+  left: 0;
+  transform: translateX(-100%);
+  transition: all 0.5s ease;
+  z-index: 2;
+}
+
+.controls-container button:hover .now {
+  transform: translateX(10px);
+  transition-delay: 300ms;
+}
+
+.controls-container button:hover .play {
+  transform: translateX(200%);
+  transition-delay: 300ms;
+}
+
+.controls-container h1 {
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  position: relative;
+}
+
+.content h2 {
+  position: absolute;
+  color: #fff;
+  transform: translate(-50%, -50%);
+  font-size: 3.5rem;
+  white-space: nowrap;
+}
+
+.content h2:nth-child(1) {
+  color: transparent;
+  -webkit-text-stroke: 2px white;
+}
+
+.content h2:nth-child(2) {
+  color: white;
+  animation: animate 2s ease-in-out infinite;
+}
+
+@keyframes animate {
+  0%,
+  100% {
+    clip-path: polygon(
+      0 43%,
+      15% 43%,
+      22% 45%,
+      40% 60%,
+      54% 63%,
+      81% 58%,
+      100% 47%,
+      99% 100%,
+      0% 100%
+    );
+  }
+
+  50% {
+    clip-path: polygon(
+      0 60%,
+      18% 66%,
+      34% 67%,
+      51% 62%,
+      70% 48%,
+      83% 43%,
+      100% 41%,
+      99% 100%,
+      0% 100%
+    );
+  }
+}
+
+@keyframes scale {
+  to {
+    transform: scale(1.05);
+  }
 }
