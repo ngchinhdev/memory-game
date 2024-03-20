@@ -623,12 +623,29 @@ button {
   cursor: pointer;
 }
 
+#play-again,
 #stop {
   font-size: 1.1em;
-  display: block;
-  margin: 1.1em auto 0 auto;
   background-color: #000000;
   color: #ffffff;
+}
+
+#play-again{
+  background: green;
+}
+
+.wrap-action-win{
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#play-again.active{
+  display: none;
 }
 
 .hide {

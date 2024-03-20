@@ -2,6 +2,7 @@ const moves = document.getElementById("moves-count");
 const timeValue = document.getElementById("time");
 const startButton = document.getElementById("start");
 const stopButton = document.getElementById("stop");
+const playAgain = document.getElementById("play-again")
 const gameContainer = document.querySelector(".game-container");
 const result = document.getElementById("result");
 const controls = document.querySelector(".controls-container");
@@ -165,6 +166,7 @@ const matrixGenerator = (cardValues) => {
                       </div>
                   </div>
               `;
+              playAgain.classList.remove("active")
               fireworks.innerHTML = fireworksHTML;
               gameContainer.style.gap = "0";
               gameContainer.innerHTML = winningHTML;
@@ -192,9 +194,11 @@ startButton.addEventListener("click", () => {
   seconds = 0;
   minutes = 0;
   //Controls amd buttons visibility
+  gameContainer.style.gap = "0.6em";
   controls.classList.add("hide");
   stopButton.classList.remove("hide");
   startButton.classList.add("hide");
+  playAgain.classList.add("active");
   //Start timer
   interval = setInterval(timeGenerator, 1000);
   //Initial moves
@@ -202,15 +206,36 @@ startButton.addEventListener("click", () => {
   initializer();
 });
 
+//Play again
+
+playAgain.addEventListener("click", () => {
+  movesCount = 0;
+  seconds = 0;
+  minutes = 0;
+  gameContainer.style.gap = "0.6em";
+  stopButton.classList.remove("hide");
+  startButton.classList.add("hide");
+  playAgain.classList.add("active");
+  fireworks.innerHTML = '';
+  //Start timer
+  interval = setInterval(timeGenerator, 1000);
+  //Initial moves
+  moves.innerHTML = `<span>Lượt đã chọn: </span> ${movesCount}`;
+  initializer();
+})
+
+
+
 //Stop game
 stopButton.addEventListener(
   "click",
   (stopGame = () => {
     const confirmStopGame = confirm("Bạn có muốn dừng trò chơi?");
-
     if (confirmStopGame) {
+      fireworks.innerHTML = '';
       controls.classList.remove("hide");
       stopButton.classList.add("hide");
+      playAgain.classList.add("active");
       startButton.classList.remove("hide");
       clearInterval(interval);
     }
