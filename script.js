@@ -15,11 +15,11 @@ const soundClickCard = document.getElementById('click-card');
 const winSound = document.getElementById('winning');
 
 startButton.addEventListener('mouseenter', function () {
-  buttonSound.play();
+  soundClickCard.play();
 });
 
 startButton.addEventListener('click', function () {
-  soundClickCard.play();
+  buttonSound.play();
   bgSound.play();
 });
 
