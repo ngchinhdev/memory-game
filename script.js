@@ -9,13 +9,18 @@ const controls = document.querySelector(".controls-container");
 const fireworks = document.querySelector(".fire");
 const wrap = document.querySelector(".wrapper");
 
-var sound = document.getElementById('clickSound');
-var sound2 = document.getElementById('bg-sound');
-var sound3 = document.getElementById('click-card');
+const buttonSound = document.getElementById('clickSound');
+const bgSound = document.getElementById('bg-sound');
+const soundClickCard = document.getElementById('click-card');
+const winSound = document.getElementById('winning');
 
-startButton.addEventListener('click', function() {
-  sound.play();
-  sound2.play();
+startButton.addEventListener('mouseenter', function () {
+  buttonSound.play();
+});
+
+startButton.addEventListener('click', function () {
+  soundClickCard.play();
+  bgSound.play();
 });
 
 let cards;
@@ -46,12 +51,11 @@ const items = [
 gameContainer.style.pointerEvents = "none";
 
 //Initial Time
-let seconds = 0,
-  minutes = 0;
+let seconds = 0, minutes = 0;
 
 //Initial moves and win count
-let movesCount = 0,
-  winCount = 0;
+let movesCount = 0, winCount = 15;
+console.log(winCount);
 
 //For timer
 const timeGenerator = () => {
@@ -92,7 +96,6 @@ const generateRandom = () => {
     tempArray.splice(randomIndex, 1);
   }
 
-  console.log(cardValues);
   return cardValues;
 };
 
@@ -132,8 +135,8 @@ const matrixGenerator = (cardValues) => {
   cards = document.querySelectorAll(".card-container");
   cards.forEach((card) => {
     card.addEventListener("click", () => {
-      sound3.play();
-      
+      soundClickCard.play();
+
       //If selected card is not matched yet then only run
       if (!card.classList.contains("matched")) {
         //Flip the clicked card
@@ -169,6 +172,8 @@ const matrixGenerator = (cardValues) => {
             //Check if winCount == half of cardValues
             console.log(winCount, Math.floor(cardValues.length));
             if (winCount === Math.floor(cardValues.length / 2)) {
+              bgSound.pause();
+              winSound.play();
               clearInterval(interval);
               const fireworksHTML = `
                   <div class="pyro">
@@ -243,6 +248,7 @@ startButton.addEventListener("click", () => {
 
 //Play again
 playAgain.addEventListener("click", () => {
+  buttonSound.play();
   movesCount = 0;
   seconds = 0;
   minutes = 0;
@@ -251,7 +257,7 @@ playAgain.addEventListener("click", () => {
   startButton.classList.add("hide");
   playAgain.classList.add("active");
   fireworks.innerHTML = "";
-  sound2.play();
+  bgSound.play();
 
   //Start timer
   interval = setInterval(timeGenerator, 1000);
@@ -265,6 +271,8 @@ playAgain.addEventListener("click", () => {
 stopButton.addEventListener(
   "click",
   (stopGame = () => {
+    buttonSound.play();
+    bgSound.pause();
     const confirmStopGame = confirm("Bạn có muốn dừng trò chơi?");
     if (confirmStopGame) {
       fireworks.innerHTML = "";
@@ -272,16 +280,17 @@ stopButton.addEventListener(
       stopButton.classList.add("hide");
       playAgain.classList.add("active");
       startButton.classList.remove("hide");
-      sound2.pause();
+      bgSound.pause();
       clearInterval(interval);
     }
+    bgSound.play();
   })
 );
 
 //Initialize values and func calls
 const initializer = () => {
   result.innerText = "";
-  winCount = 0;
+  winCount = 15;
   let cardValues = generateRandom();
   matrixGenerator(cardValues);
 };
