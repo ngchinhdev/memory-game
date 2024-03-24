@@ -1,5 +1,4 @@
-/* Source code was create by CDP Team - Cuộc thi tìm kiếm tài năng JS */
-
+/* Source code was created by CDP Team - Cuộc thi tìm kiếm tài năng JS */
 const moves = document.getElementById("moves-count");
 const timeValue = document.getElementById("time");
 const startButton = document.getElementById("start");
@@ -18,6 +17,7 @@ const soundClickCard = document.getElementById("click-card");
 const winSound = document.getElementById("winning");
 
 let isFinished = false;
+let isBothOpened = false;
 let cards;
 let interval;
 let firstCard = false;
@@ -27,7 +27,7 @@ let winCount = 0;
 let seconds = 0;
 let minutes = 0;
 
-const items = [
+const languages = [
   { name: "ruby", image: "images/ruby.png" },
   { name: "nodejs", image: "images/nodejs.webp" },
   { name: "ts", image: "images/ts.png" },
@@ -46,6 +46,18 @@ const items = [
   { name: "c", image: "images/c.png" },
 ];
 
+const stopClickOtherCards = (isStop) => {
+  if (isStop) {
+    cards.forEach((card) => {
+      card.style.pointerEvents = "none";
+    });
+  } else {
+    cards.forEach((card) => {
+      card.style.pointerEvents = "auto";
+    });
+  }
+};
+
 function initializeGame() {
   isFinished = false;
   movesCount = 0;
@@ -55,11 +67,13 @@ function initializeGame() {
   overlay.style.left = "0";
   overlay.style.opacity = "1";
   overlay.style.pointerEvents = "auto";
+  gameContainer.style.pointerEvents = "none";
   setTimeout(function () {
     overlay.style.transition = "left 1s ease";
     overlay.style.left = "-100%";
     overlay.style.pointerEvents = "none";
     gameContainer.style.gap = "0.6em";
+    gameContainer.style.pointerEvents = "none";
     controls.classList.add("hide");
     stopButton.classList.remove("hide");
     startButton.classList.add("hide");
@@ -80,7 +94,7 @@ function initializeCards() {
 }
 
 function generateRandom() {
-  let tempArray = [...items];
+  let tempArray = [...languages];
   let cardValues = [];
   for (let i = 0; i < 16; i++) {
     const randomIndex = Math.floor(Math.random() * tempArray.length);
@@ -144,6 +158,9 @@ function onCardClick(card) {
       firstCardValue = card.getAttribute("data-card-value");
     } else {
       movesCounter();
+      stopClickOtherCards(true);
+      isBothOpened = true;
+      isBothOpened && (gameContainer.style.pointerEvents = "none");
       secondCard = card;
       secondCard.style.pointerEvents = "none";
       let secondCardValue = card.getAttribute("data-card-value");
@@ -158,7 +175,7 @@ function onCardClick(card) {
 
 function movesCounter() {
   movesCount += 1;
-  moves.innerHTML = `<span>Lượt đã chọn:</span>${movesCount}`;
+  moves.innerHTML = `<span>Lượt đã chọn: </span>${movesCount}`;
 }
 
 function handleMatchedCards() {
@@ -166,6 +183,7 @@ function handleMatchedCards() {
   secondCard.classList.add("matched");
   firstCard = false;
   winCount += 1;
+  stopClickOtherCards(false);
   if (winCount === Math.floor(cards.length / 2)) {
     endGame();
   }
@@ -180,6 +198,7 @@ function handleMismatchedCards() {
     tempFirst.classList.remove("flipped");
     tempSecond.classList.remove("flipped");
     tempSecond.style.pointerEvents = "auto";
+    stopClickOtherCards(false);
   }, 900);
 }
 
@@ -254,5 +273,4 @@ stopButton.addEventListener("click", () => {
   }
   !isFinished && bgSound.play();
 });
-
-/* Source code was create by CDP Team - Cuộc thi tìm kiếm tài năng JS */
+/* Source code was created by CDP Team - Cuộc thi tìm kiếm tài năng JS */
