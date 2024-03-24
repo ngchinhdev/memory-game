@@ -10,11 +10,12 @@ const result = document.getElementById("result");
 const controls = document.querySelector(".controls-container");
 const fireworks = document.querySelector(".fire");
 const wrap = document.querySelector(".wrapper");
+const overlay = document.getElementById("overlay");
 
-const buttonSound = document.getElementById('clickSound');
-const bgSound = document.getElementById('bg-sound');
-const soundClickCard = document.getElementById('click-card');
-const winSound = document.getElementById('winning');
+const buttonSound = document.getElementById("clickSound");
+const bgSound = document.getElementById("bg-sound");
+const soundClickCard = document.getElementById("click-card");
+const winSound = document.getElementById("winning");
 
 let isFinished = false;
 let cards;
@@ -50,16 +51,25 @@ function initializeGame() {
   movesCount = 0;
   seconds = 0;
   minutes = 0;
-  gameContainer.style.gap = "0.6em";
-  controls.classList.add("hide");
-  stopButton.classList.remove("hide");
-  startButton.classList.add("hide");
-  playAgain.classList.add("active");
-  fireworks.innerHTML = "";
-  bgSound.play();
-  interval = setInterval(timeGenerator, 1000);
-  moves.innerHTML = `<span>Lượt đã chọn: </span> ${movesCount}`;
-  initializeCards();
+  overlay.style.transition = "none";
+  overlay.style.left = "0";
+  overlay.style.opacity = "1";
+  overlay.style.pointerEvents = "auto";
+  setTimeout(function () {
+    overlay.style.transition = "left 1s ease";
+    overlay.style.left = "-100%";
+    overlay.style.pointerEvents = "none";
+    gameContainer.style.gap = "0.6em";
+    controls.classList.add("hide");
+    stopButton.classList.remove("hide");
+    startButton.classList.add("hide");
+    playAgain.classList.add("active");
+    fireworks.innerHTML = "";
+    bgSound.play();
+    interval = setInterval(timeGenerator, 1000);
+    moves.innerHTML = `<span>Lượt đã chọn: </span> ${movesCount}`;
+    initializeCards();
+  }, 400);
 }
 
 function initializeCards() {
@@ -87,7 +97,7 @@ function generateMatrix(cardValues) {
   for (let i = 0; i < 32; i++) {
     gameContainer.innerHTML += `
      <div class="card-container" data-card-value="${cardValues[i].name}">
-        <div class="card-before">?</div>
+        <div class="card-before"><span>?</span></div>
         <div class="card-after">
         <img src="${cardValues[i].image}" class="image"/></div>
      </div>
@@ -207,29 +217,34 @@ function endGame() {
   gameContainer.innerHTML = winningHTML;
 }
 
-startButton.addEventListener('mouseenter', () => {
+startButton.addEventListener("mouseenter", () => {
   soundClickCard.play();
 });
 
-startButton.addEventListener('click', () => {
+startButton.addEventListener("click", () => {
   buttonSound.play();
   bgSound.play();
-  initializeGame();
+  setTimeout(() => {
+    initializeGame();
+  }, 400);
 });
 
-playAgain.addEventListener('click', () => {
+playAgain.addEventListener("click", () => {
   isFinished = false;
   buttonSound.play();
   clearInterval(interval);
   initializeGame();
 });
 
-stopButton.addEventListener('click', () => {
+stopButton.addEventListener("click", () => {
   buttonSound.play();
   bgSound.pause();
   const confirmStopGame = confirm("Bạn có muốn dừng trò chơi?");
   if (confirmStopGame) {
     isFinished = true;
+    overlay.style.opacity = "0";
+    overlay.style.pointerEvents = "none";
+    overlay.style.left = "0";
     fireworks.innerHTML = "";
     controls.classList.remove("hide");
     stopButton.classList.add("hide");
@@ -241,4 +256,3 @@ stopButton.addEventListener('click', () => {
 });
 
 /* Source code was create by CDP Team - Cuộc thi tìm kiếm tài năng JS */
-

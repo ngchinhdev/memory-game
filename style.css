@@ -13,6 +13,19 @@
   user-select: none;
 }
 
+#overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  background-color: black;
+  z-index: 99;
+  transition: left 1s ease;
+  pointer-events: none;
+}
+
 body {
   background-color: #f4c531;
   box-sizing: border-box;
@@ -568,6 +581,8 @@ body {
   width: 6.25em;
   height: 6.25em;
   cursor: pointer;
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
 .card-before,
@@ -580,8 +595,14 @@ body {
   align-items: center;
   justify-content: center;
   border: 4px solid #000000;
-  transition: transform 0.7s ease-out;
+  transition: transform 1s ease;
   backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.card-after img,
+.card-before span{
+  transform: translateZ(35px);
 }
 
 .card-before {
@@ -591,12 +612,13 @@ body {
 }
 
 .card-after {
+  z-index: 100;
   background-color: #ffffff;
   transform: rotateY(180deg);
 }
 
 .card-container.flipped .card-before {
-  transform: rotateY(180deg);
+  transform: rotateY(-180deg);
 }
 
 .card-container.flipped .card-after {
