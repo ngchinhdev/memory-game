@@ -1,3 +1,5 @@
+/* Source code was create by CDP Team - Cuộc thi tìm kiếm tài năng JS */
+
 @import url("https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap");
 
 * {
@@ -17,7 +19,6 @@ body {
   overflow: hidden;
 }
 
-/* card-windgame */
 .e-card {
   background: transparent;
   box-shadow: 0px 8px 28px -9px rgba(0, 0, 0, 0.45);
@@ -531,7 +532,6 @@ body {
   }
 }
 
-/* firework-end */
 .wrapper {
   box-sizing: content-box;
   /* width: 26.87em; */
@@ -846,3 +846,5 @@ img {
     transform: scale(1.05);
   }
 }
+
+/* Source code was create by CDP Team - Cuộc thi tìm kiếm tài năng JS */
