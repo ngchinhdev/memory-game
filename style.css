@@ -48,9 +48,9 @@ body {
 
 .infotop {
   text-align: center;
-  font-size: 22px;
+  font-size: 28px;
   position: absolute;
-  top: 5.6em;
+  top: 3.6em;
   left: 0;
   right: 0;
   color: rgb(255, 255, 255);
@@ -682,8 +682,8 @@ button {
   color: #ffffff;
 }
 
-#play-again{
-  background: green ;
+#play-again {
+  background: green;
 }
 
 .wrap-action-win {
