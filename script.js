@@ -16,6 +16,7 @@ const buttonSound = document.getElementById("clickSound");
 const bgSound = document.getElementById("bg-sound");
 const soundClickCard = document.getElementById("click-card");
 const winSound = document.getElementById("winning");
+const loseSound = document.getElementById("losegame");
 
 let maxLevel = 5;
 let curLevel = 1;
@@ -50,28 +51,28 @@ const languages = [
 const identifyEachLevel = {
   1: {
     languages: 2,
-    grid: [2, 2]
+    grid: [2, 2],
   },
   2: {
     languages: 4,
-    grid: [4, 2]
+    grid: [4, 2],
   },
   3: {
     languages: 8,
-    grid: [4, 4]
+    grid: [4, 4],
   },
   4: {
     languages: 12,
-    grid: [6, 4]
+    grid: [6, 4],
   },
   5: {
     languages: 16,
-    grid: [8, 4]
+    grid: [8, 4],
   },
 };
 
 const timeEachLevel = {
-  1: 30,
+  1: 10,
   2: 60,
   3: 90,
   4: 120,
@@ -131,7 +132,7 @@ function initializeCards(level) {
 function generateRandom(level) {
   let tempArray = [...languages];
   let cardValues = [];
-  for (let i = 0; i < identifyEachLevel[level]['languages']; i++) {
+  for (let i = 0; i < identifyEachLevel[level]["languages"]; i++) {
     const randomIndex = Math.floor(Math.random() * tempArray.length);
     cardValues.push(tempArray[randomIndex]);
     tempArray.splice(randomIndex, 1);
@@ -177,7 +178,7 @@ function generateMatrix(cardValues, level) {
 
 function timeGenerator(time) {
   if (time < 0) {
-    endGame();
+    losegame();
     return;
   }
 
@@ -225,9 +226,7 @@ function handleNextLevel() {
   }, 1000);
 
   if (curLevel < maxLevel) {
-    nextLevelButton.classList.remove("active");
-  } else {
-    nextLevelButton.classList.add("hide");
+    nextLevelButton.classList.add("active");
   }
 }
 
@@ -253,6 +252,32 @@ function handleMismatchedCards() {
     tempSecond.style.pointerEvents = "auto";
     stopClickOtherCards(false);
   }, 900);
+}
+function losegame() {
+  clearInterval(interval);
+
+  loseSound.play();
+  bgSound.pause();
+  const loseHTML = `
+  <div class="e-card playing">
+      <div class="image"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="infotop">
+      <div class="lose-game-img">
+      <img src="./images/game-over.png" alt="">
+    </div>
+      <br>      
+        Cấp độ: ${curLevel}
+      <br>
+      <div class="name"> <h3>BẠN ĐÃ THUA</h3></div>
+  </div>
+</div>
+`;
+  playAgainButton.classList.remove("active");
+  gameContainer.style.gap = "0.6";
+  gameContainer.innerHTML = loseHTML;
 }
 
 function endGame() {

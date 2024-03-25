@@ -76,7 +76,7 @@ body {
   text-align: center;
   font-size: 28px;
   position: absolute;
-  top: 3.6em;
+  top: 1.6em;
   left: 0;
   right: 0;
   color: rgb(255, 255, 255);
@@ -143,8 +143,8 @@ body {
   z-index: 9999;
 }
 
-.pyro>.before,
-.pyro>.after {
+.pyro > .before,
+.pyro > .after {
   position: absolute;
   width: 7px;
   height: 7px;
@@ -169,7 +169,7 @@ body {
     1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
 }
 
-.pyro>.after {
+.pyro > .after {
   -moz-animation-delay: 1.25s, 1.25s, 1.25s;
   -webkit-animation-delay: 1.25s, 1.25s, 1.25s;
   -o-animation-delay: 1.25s, 1.25s, 1.25s;
@@ -188,7 +188,7 @@ body {
       -184px 70.3333333333px darkorange, -121px -119.6666666667px #2f00ff,
       187px -53.6666666667px #40ff00, 67px -38.6666666667px #ffaa00,
       229px -326.6666666667px #00ff73, -27px -34.6666666667px #2f00ff,
-      -65px 39.3333333333px #9500ff, -16px -160.6666666667px #88ff00,
+      hide -65px 39.3333333333px #9500ff, -16px -160.6666666667px #88ff00,
       210px -49.6666666667px #00ff11, 118px -257.6666666667px #c4ff00,
       -182px -320.6666666667px #dd00ff, 182px -160.6666666667px #00ff59,
       -137px -385.6666666667px #37ff00, -125px -356.6666666667px #00ff84,
@@ -393,7 +393,6 @@ body {
 }
 
 @-webkit-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -426,7 +425,6 @@ body {
 }
 
 @-moz-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -459,7 +457,6 @@ body {
 }
 
 @-o-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -492,7 +489,6 @@ body {
 }
 
 @-ms-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -525,7 +521,6 @@ body {
 }
 
 @keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -746,6 +741,11 @@ button {
   text-align: center;
   margin-top: 20px;
 }
+.lose-game-img img {
+  width: 100px;
+  height: auto;
+  object-fit: cover;
+}
 
 #play-again.active {
   display: none;
@@ -869,30 +869,33 @@ img {
 }
 
 @keyframes animate {
-
   0%,
   100% {
-    clip-path: polygon(0 43%,
-        15% 43%,
-        22% 45%,
-        40% 60%,
-        54% 63%,
-        81% 58%,
-        100% 47%,
-        99% 100%,
-        0% 100%);
+    clip-path: polygon(
+      0 43%,
+      15% 43%,
+      22% 45%,
+      40% 60%,
+      54% 63%,
+      81% 58%,
+      100% 47%,
+      99% 100%,
+      0% 100%
+    );
   }
 
   50% {
-    clip-path: polygon(0 60%,
-        18% 66%,
-        34% 67%,
-        51% 62%,
-        70% 48%,
-        83% 43%,
-        100% 41%,
-        99% 100%,
-        0% 100%);
+    clip-path: polygon(
+      0 60%,
+      18% 66%,
+      34% 67%,
+      51% 62%,
+      70% 48%,
+      83% 43%,
+      100% 41%,
+      99% 100%,
+      0% 100%
+    );
   }
 }
 
