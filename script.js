@@ -8,9 +8,13 @@ const playAgainButton = document.getElementById("play-again");
 const gameContainer = document.querySelector(".game-container");
 const result = document.getElementById("result");
 const controls = document.querySelector(".controls-container");
+const btnContinue = document.getElementById("btn-continue");
 const fireworks = document.querySelector(".fire");
 const wrap = document.querySelector(".wrapper");
+const btnCancle = document.getElementById("btn-cancle");
 const overlay = document.getElementById("overlay");
+const btnExitAll = document.querySelectorAll(".btn-exit");
+const btnReset = document.getElementById("btn-reset");
 
 const buttonSound = document.getElementById("clickSound");
 const bgSound = document.getElementById("bg-sound");
@@ -28,6 +32,8 @@ let firstCard = false;
 let secondCard = false;
 let winCount = 0;
 let tempTime = 0;
+let currentTime = 0;
+let isContinuing = false;
 
 const languages = [
   { name: "ruby", image: "images/ruby.png" },
@@ -91,35 +97,45 @@ const stopClickOtherCards = (isStop) => {
   }
 };
 
-function initializeGame() {
-  isFinished = false;
-  seconds = 0;
-  minutes = 0;
-  overlay.style.transition = "none";
-  overlay.style.left = "0";
-  overlay.style.opacity = "1";
-  overlay.style.pointerEvents = "auto";
-  gameContainer.style.pointerEvents = "none";
-  setTimeout(function () {
-    overlay.style.transition = "left 1s ease";
-    overlay.style.left = "-100%";
-    overlay.style.pointerEvents = "none";
-    gameContainer.style.gap = "0.6em";
-    gameContainer.style.pointerEvents = "none";
-    controls.classList.add("hide");
-    stopButton.classList.remove("hide");
-    startButton.classList.add("hide");
-    playAgainButton.classList.add("active");
-    nextLevelButton.classList.add("active");
-    fireworks.innerHTML = "";
-    bgSound.play();
-    tempTime = timeEachLevel[curLevel];
+function initializeGame(remainingTime) {
+  tempTime = remainingTime || timeEachLevel[curLevel];
+  if (isContinuing) {
+    document.querySelector(".container-card-exit").style.transform =
+      "translate(-50%, -50%) scale(0)";
+    isContinuing = false;
     interval = setInterval(() => {
       timeGenerator(tempTime);
       tempTime -= 1;
     }, 1000);
-    initializeCards(1);
-  }, 400);
+  } else {
+    isFinished = false;
+    seconds = 0;
+    minutes = 0;
+    overlay.style.transition = "none";
+    overlay.style.left = "0";
+    overlay.style.opacity = "1";
+    overlay.style.pointerEvents = "auto";
+    gameContainer.style.pointerEvents = "none";
+    setTimeout(function () {
+      overlay.style.transition = "left 1s ease";
+      overlay.style.left = "-100%";
+      overlay.style.pointerEvents = "none";
+      gameContainer.style.gap = "0.6em";
+      gameContainer.style.pointerEvents = "none";
+      controls.classList.add("hide");
+      stopButton.classList.remove("hide");
+      startButton.classList.add("hide");
+      playAgainButton.classList.add("active");
+      nextLevelButton.classList.add("active");
+      fireworks.innerHTML = "";
+      bgSound.play();
+      interval = setInterval(() => {
+        timeGenerator(tempTime);
+        tempTime -= 1;
+      }, 1000);
+      initializeCards(1);
+    }, 400);
+  }
 }
 
 function initializeCards(level) {
@@ -350,22 +366,56 @@ playAgainButton.addEventListener("click", () => {
   nextLevelButton.classList.remove("hide");
 });
 
-stopButton.addEventListener("click", () => {
-  buttonSound.play();
-  bgSound.pause();
-  const confirmStopGame = confirm("Bạn có muốn dừng trò chơi?");
-  if (confirmStopGame) {
-    isFinished = true;
-    overlay.style.opacity = "0";
-    overlay.style.pointerEvents = "none";
-    overlay.style.left = "0";
-    fireworks.innerHTML = "";
-    controls.classList.remove("hide");
-    stopButton.classList.add("hide");
-    playAgainButton.classList.add("active");
-    startButton.classList.remove("hide");
-    clearInterval(interval);
-  }
-  !isFinished && bgSound.play();
+btnExitAll.forEach((button) => {
+  button.addEventListener("click", () => {
+    buttonSound.play();
+  });
 });
+
+const stopGame = () => {
+  bgSound.pause();
+  isFinished = true;
+  document.querySelector(".container-card-exit").style.transition = "none";
+  document.querySelector(".container-card-exit").style.transform =
+    "translate(-50%, -50%) scale(0)";
+  overlay.style.opacity = "0";
+  overlay.style.pointerEvents = "none";
+  overlay.style.left = "0";
+  fireworks.innerHTML = "";
+  controls.classList.remove("hide");
+  stopButton.classList.add("hide");
+  playAgainButton.classList.add("active");
+  startButton.classList.remove("hide");
+  clearInterval(interval);
+};
+
+const wrapperAction = () => {
+  buttonSound.play();
+  document.querySelector(".container-card-exit").style.transform =
+    "translate(-50%, -50%) scale(1)";
+  clearInterval(interval);
+  currentTime = tempTime;
+};
+const actionContinue = () => {
+  isContinuing = true;
+  initializeGame(currentTime);
+};
+
+const resetGame = () => {
+  document.querySelector(".container-card-exit").style.transform =
+    "translate(-50%, -50%) scale(0)";
+  isFinished = false;
+  curLevel = 1;
+  buttonSound.play();
+  clearInterval(interval);
+  initializeGame();
+  levels.innerText = `Cấp độ: ${curLevel}`;
+  nextLevelButton.classList.remove("hide");
+};
+
+btnContinue.addEventListener("click", actionContinue);
+stopButton.addEventListener("click", wrapperAction);
+btnCancle.addEventListener("click", stopGame);
+btnReset.addEventListener("click", resetGame);
+
 /* Source code was created by CDP Team - Cuộc thi tìm kiếm tài năng JS */

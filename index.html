@@ -6,6 +6,13 @@
   <title>Game - Trí Nhớ Lập Trình</title>
   <link rel="icon" type="image/x-icon" href="/images/js.png" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   <link rel="icon" type="image/png" href="images/bg-startgame.jpg" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -14,9 +21,15 @@
   <audio id="click-card" src="audio/videoplayback.m4a"></audio>
   <audio id="winning" src="audio/winning.mp3"></audio>
   <audio id="losegame" src="audio/lose.wav"></audio>
-
   <div class="bg-blur"></div>
   <div class="fire"></div>
+  <div class="container-card-exit">
+    <div class="card-exit">
+      <button class="btn-exit" id="btn-cancle"><i class="fa-solid fa-right-from-bracket"></i></button>
+      <button class="btn-exit" id="btn-continue"><i class="fa-solid fa-play"></i></i></button>
+      <button class="btn-exit" id="btn-reset"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+    </div>
+  </div>
   <div class="wrapper">
     <div class="stats-container">
       <div id="level">Cấp độ: 1</div>
@@ -28,9 +41,9 @@
       <div class="winGameTitle"></div>
     </div>
     <div class="wrap-action-win">
-      <button id="next-level">Tiếp tục</button>
-      <button id="play-again">Chơi lại</button>
-      <button id="stop" class="hide">Thoát</button>
+      <button class="btn-action" id="next-level">Tiếp tục</button>
+      <button class="btn-action" id="play-again">Chơi lại</button>
+      <button class="btn-action" id="stop" class="hide">Thoát</button>
     </div>
   </div>
   <div class="controls-container">
