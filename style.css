@@ -66,6 +66,18 @@ body {
   background: linear-gradient(744deg, #f4c531, #f4c531 60%, #f26430);
 }
 
+.wave.lost {
+  position: absolute;
+  width: 540px;
+  height: 700px;
+  opacity: 0.6;
+  left: 0;
+  top: 0;
+  margin-left: -50%;
+  margin-top: -70%;
+  background: linear-gradient(744deg, #ec4026, #cd1e1b 60%, #f26430);
+}
+
 .icon {
   width: 3em;
   margin-top: -1em;
@@ -143,8 +155,8 @@ body {
   z-index: 9999;
 }
 
-.pyro > .before,
-.pyro > .after {
+.pyro>.before,
+.pyro>.after {
   position: absolute;
   width: 7px;
   height: 7px;
@@ -169,7 +181,7 @@ body {
     1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
 }
 
-.pyro > .after {
+.pyro>.after {
   -moz-animation-delay: 1.25s, 1.25s, 1.25s;
   -webkit-animation-delay: 1.25s, 1.25s, 1.25s;
   -o-animation-delay: 1.25s, 1.25s, 1.25s;
@@ -393,6 +405,7 @@ body {
 }
 
 @-webkit-keyframes position {
+
   0%,
   19.9% {
     margin-top: 10%;
@@ -425,6 +438,7 @@ body {
 }
 
 @-moz-keyframes position {
+
   0%,
   19.9% {
     margin-top: 10%;
@@ -457,6 +471,7 @@ body {
 }
 
 @-o-keyframes position {
+
   0%,
   19.9% {
     margin-top: 10%;
@@ -489,6 +504,7 @@ body {
 }
 
 @-ms-keyframes position {
+
   0%,
   19.9% {
     margin-top: 10%;
@@ -521,6 +537,7 @@ body {
 }
 
 @keyframes position {
+
   0%,
   19.9% {
     margin-top: 10%;
@@ -578,7 +595,7 @@ body {
 
 .stats-container {
   text-align: right;
-  margin-bottom: 1.2em;
+  margin-bottom: 2.8em;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -586,9 +603,13 @@ body {
 }
 
 #level {
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   font-weight: 600;
   margin-right: 3rem;
+}
+
+#time {
+  font-size: 1.4rem;
 }
 
 .stats-container span {
@@ -716,13 +737,16 @@ button {
   cursor: pointer;
 }
 
+
 .btn-exit,
-.btn-action{
+.btn-action {
   transition: 0.8s;
   background-size: 280% auto;
   box-shadow: 0px 0px 20px rgba(71, 184, 255, 0.5), 0px 5px 5px -1px rgba(58, 125, 233, 0.25), inset 4px 4px 8px rgba(175, 230, 255, 0.5), inset -4px -4px 8px rgba(19, 95, 216, 0.35);
 }
 
+
+#btn-escape,
 .btn-exit,
 #play-again,
 #next-level,
@@ -733,11 +757,11 @@ button {
 }
 
 .btn-exit:hover,
-.btn-action:hover{
+.btn-action:hover {
   background-position: right top;
 }
 
-#stop{
+#stop {
   background-image: linear-gradient(325deg, rgb(7, 7, 7) 0%, rgb(56, 65, 67) 55%, rgb(0, 0, 0) 90%);
 }
 
@@ -746,7 +770,7 @@ button {
   background-image: linear-gradient(325deg, rgb(12, 181, 12) 0%, rgb(21, 255, 68) 55%, rgb(12, 181, 12) 90%);
 }
 
-.container-card-exit{
+.container-card-exit {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -762,7 +786,7 @@ button {
 }
 
 .card-exit {
-  padding: 50px ;
+  padding: 50px;
   padding-top: 80px;
   border: none;
   border-radius: 10px;
@@ -770,11 +794,11 @@ button {
   gap: 80px;
 }
 
-.card-exit button{
+.card-exit button {
   font-size: 1.2rem;
 }
 
-.card-exit button:nth-child(2){
+.card-exit button:nth-child(2) {
   transform: translateY(-40px);
 }
 
@@ -786,8 +810,9 @@ button {
   align-items: center;
   width: 100%;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 2.8rem;
 }
+
 .lose-game-img img {
   width: 100px;
   height: auto;
@@ -916,33 +941,30 @@ img {
 }
 
 @keyframes animate {
+
   0%,
   100% {
-    clip-path: polygon(
-      0 43%,
-      15% 43%,
-      22% 45%,
-      40% 60%,
-      54% 63%,
-      81% 58%,
-      100% 47%,
-      99% 100%,
-      0% 100%
-    );
+    clip-path: polygon(0 43%,
+        15% 43%,
+        22% 45%,
+        40% 60%,
+        54% 63%,
+        81% 58%,
+        100% 47%,
+        99% 100%,
+        0% 100%);
   }
 
   50% {
-    clip-path: polygon(
-      0 60%,
-      18% 66%,
-      34% 67%,
-      51% 62%,
-      70% 48%,
-      83% 43%,
-      100% 41%,
-      99% 100%,
-      0% 100%
-    );
+    clip-path: polygon(0 60%,
+        18% 66%,
+        34% 67%,
+        51% 62%,
+        70% 48%,
+        83% 43%,
+        100% 41%,
+        99% 100%,
+        0% 100%);
   }
 }
 

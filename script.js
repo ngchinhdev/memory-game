@@ -1,26 +1,31 @@
 /* Source code was created by CDP Team - Cuộc thi tìm kiếm tài năng JS */
+
 const levels = document.getElementById("level");
 const timeValue = document.getElementById("time");
+const containerCardExit = document.querySelector(".container-card-exit");
+const gameContainer = document.querySelector(".game-container");
+const result = document.getElementById("result");
+const controls = document.querySelector(".controls-container");
+const btnEscape = document.getElementById("btn-escape");
+const fireworks = document.querySelector(".fire");
+const wrap = document.querySelector(".wrapper");
+const btnCancel = document.getElementById("btn-cancel");
+const overlay = document.getElementById("overlay");
+
 const startButton = document.getElementById("start");
 const stopButton = document.getElementById("stop");
 const nextLevelButton = document.getElementById("next-level");
 const playAgainButton = document.getElementById("play-again");
-const gameContainer = document.querySelector(".game-container");
-const result = document.getElementById("result");
-const controls = document.querySelector(".controls-container");
 const btnContinue = document.getElementById("btn-continue");
-const fireworks = document.querySelector(".fire");
-const wrap = document.querySelector(".wrapper");
-const btnCancle = document.getElementById("btn-cancle");
-const overlay = document.getElementById("overlay");
 const btnExitAll = document.querySelectorAll(".btn-exit");
 const btnReset = document.getElementById("btn-reset");
 
 const buttonSound = document.getElementById("clickSound");
 const bgSound = document.getElementById("bg-sound");
-const soundClickCard = document.getElementById("click-card");
+const clickCardSound = document.getElementById("click-card");
 const winSound = document.getElementById("winning");
-const loseSound = document.getElementById("losegame");
+const loseSound = document.getElementById("lose-game");
+const clappingSound = document.getElementById("clapping");
 
 let maxLevel = 5;
 let curLevel = 1;
@@ -34,6 +39,7 @@ let winCount = 0;
 let tempTime = 0;
 let currentTime = 0;
 let isContinuing = false;
+let isLost = false;
 
 const languages = [
   { name: "ruby", image: "images/ruby.png" },
@@ -79,13 +85,13 @@ const identifyEachLevel = {
 
 const timeEachLevel = {
   1: 15,
-  2: 60,
+  2: 40,
   3: 90,
   4: 120,
-  5: 150,
+  5: 180,
 };
 
-const stopClickOtherCards = (isStop) => {
+function stopClickOtherCards(isStop) {
   if (isStop) {
     cards.forEach((card) => {
       card.style.pointerEvents = "none";
@@ -95,19 +101,21 @@ const stopClickOtherCards = (isStop) => {
       card.style.pointerEvents = "auto";
     });
   }
-};
+}
 
 function initializeGame(remainingTime) {
-  tempTime = remainingTime || timeEachLevel[curLevel];
+  gameContainer.style.display = "grid";
+  timeValue.innerHTML = `<span>Thời gian: </span>00:00`;
   if (isContinuing) {
-    document.querySelector(".container-card-exit").style.transform =
-      "translate(-50%, -50%) scale(0)";
+    tempTime = remainingTime;
+    containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
     isContinuing = false;
     interval = setInterval(() => {
       timeGenerator(tempTime);
       tempTime -= 1;
     }, 1000);
   } else {
+    tempTime = timeEachLevel[curLevel];
     isFinished = false;
     seconds = 0;
     minutes = 0;
@@ -124,6 +132,7 @@ function initializeGame(remainingTime) {
       gameContainer.style.pointerEvents = "none";
       controls.classList.add("hide");
       stopButton.classList.remove("hide");
+      btnEscape.classList.add("hide");
       startButton.classList.add("hide");
       playAgainButton.classList.add("active");
       nextLevelButton.classList.add("active");
@@ -139,6 +148,10 @@ function initializeGame(remainingTime) {
 }
 
 function initializeCards(level) {
+  gameContainer.style.display = "grid";
+  stopButton.classList.remove("hide");
+  btnEscape.classList.add("hide");
+  timeValue.innerHTML = `<span>Thời gian: </span>00:00`;
   result.innerText = "";
   winCount = 0;
   let cardValues = generateRandom(level);
@@ -194,7 +207,7 @@ function generateMatrix(cardValues, level) {
 
 function timeGenerator(time) {
   if (time < 0) {
-    losegame();
+    loseGame();
     return;
   }
 
@@ -207,7 +220,7 @@ function timeGenerator(time) {
 }
 
 function onCardClick(card) {
-  soundClickCard.play();
+  clickCardSound.play();
   if (!card.classList.contains("matched")) {
     card.classList.add("flipped");
     if (!firstCard) {
@@ -231,17 +244,21 @@ function onCardClick(card) {
 }
 
 function handleNextLevel() {
+  bgSound.play();
+  winSound.pause();
+  winSound.currentTime = 0;
   curLevel += 1;
   levels.innerText = `Cấp độ: ${curLevel}`;
   initializeCards(curLevel);
 
   tempTime = timeEachLevel[curLevel];
+  currentTime = tempTime;
   interval = setInterval(() => {
     timeGenerator(tempTime);
     tempTime -= 1;
   }, 1000);
 
-  if (curLevel < maxLevel) {
+  if (curLevel <= maxLevel) {
     nextLevelButton.classList.add("active");
   }
 }
@@ -253,7 +270,7 @@ function handleMatchedCards() {
   winCount += 1;
   stopClickOtherCards(false);
   if (winCount === Math.floor(cards.length / 2)) {
-    endGame();
+    winGame();
   }
 }
 
@@ -269,37 +286,51 @@ function handleMismatchedCards() {
     stopClickOtherCards(false);
   }, 900);
 }
-function losegame() {
+function loseGame() {
   clearInterval(interval);
 
+  isFinished = true;
   loseSound.play();
   bgSound.pause();
+  isLost = true;
+  bgSound.currentTime = 0;
+
   const loseHTML = `
   <div class="e-card playing">
       <div class="image"></div>
-      <div class="wave"></div>
-      <div class="wave"></div>
-      <div class="wave"></div>
+      <div class="wave lost"></div>
+      <div class="wave lost"></div>
+      <div class="wave lost"></div>
       <div class="infotop">
       <div class="lose-game-img">
       <img src="./images/game-over.png" alt="">
     </div>
-      <br>      
-        Cấp độ: ${curLevel}
+        ĐÁNG TIẾC QUÁ 
       <br>
-      <div class="name"> <h3>BẠN ĐÃ THUA</h3></div>
+      <div class="name"> <h3>⏱️ ĐÃ HẾT THỜI GIAN ⏱️</h3></div>
+      <br>
   </div>
 </div>
 `;
+
   playAgainButton.classList.remove("active");
+  btnEscape.classList.remove("hide");
+  stopButton.classList.add("hide");
   gameContainer.style.gap = "0.6";
+  gameContainer.style.display = "block";
   gameContainer.innerHTML = loseHTML;
 }
 
-function endGame() {
+function winGame() {
+  btnEscape.classList.remove("hide");
+  stopButton.classList.add("hide");
   isFinished = true;
   bgSound.pause();
+  bgSound.currentTime = 0;
   winSound.play();
+  if (curLevel === maxLevel) {
+    clappingSound.play();
+  }
   clearInterval(interval);
   const fireworksHTML = `
     <div class="pyro">
@@ -314,18 +345,27 @@ function endGame() {
         <div class="wave"></div>
         <div class="wave"></div>
         <div class="infotop">
-            <svg xmlns="http://www.w3org/2000/svg" height="69" width="70" viewBox="0 0 576 512">
+          <svg xmlns="http://www.w3org/2000/svg" height="69" width="70" viewBox="0 0 576 512">
             <path fill="#ffffff" d="M400 0H176c-26.5 0-48.1 21.8-47.1 48.2c.2 5.3 .4 10.6 .7 15.8H24C10.7 64 0 74.7 0 88c0 92.6 33.5 157 78.5 200.7c44.3 43.1 98.3 64.8 138.1 75.8c23.4 6.5 39.4 26 39.4 45.6c0 20.9-17 37.9-37.9 37.9H192c-17.7 0-32 14.3-32 32s14.3 32 32 32H384c17.7 0 32-14.3 32-32s-14.3-32-32-32H357.9C337 448 320 431 320 410.1c0-19.6 15.9-39.2 39.4-45.6c39.9-11 93.9-32.7 138.2-75.8C542.5 245 576 180.6 576 88c0-13.3-10.7-24-24-24H446.4c.3-5.2 .5-10.4 .7-15.8C448.1 21.8 426.5 0 400 0zM48.9 112h84.4c9.1 90.1 29.2 150.3 51.9 190.6c-24.9-11-50.8-26.5-73.2-48.3c-32-31.1-58-76-63-142.3zM464.1 254.3c-22.4 21.8-48.3 37.3-73.2 48.3c22.7-40.3 42.8-100.5 51.9-190.6h84.4c-5.1 66.3-31.1 111.2-63 142.3z"/>
         </svg>
         <br>      
-          Cấp độ: ${curLevel}
+          XIN CHÚC MỪNG
         <br>
-        <div class="name"> <h3>BẠN ĐÃ THẮNG</h3></div>
+        <div class="name"> ${
+          curLevel < maxLevel
+            ? `<h3>BẠN ĐÃ THẮNG MÀN ${curLevel}</h3>`
+            : `<h3>BẠN ĐÃ THẮNG TRÒ CHƠI</h3>`
+        }</div>
+        <br>      
+          ${curLevel < maxLevel ? `🎉🎉` : `🎉🎉🎉🎉🎉`}
+        <br>
     </div>
 </div>
 `;
   if (curLevel < maxLevel) {
     nextLevelButton.classList.remove("active");
+    btnEscape.classList.remove("hide");
+    stopButton.classList.add("hide");
   } else {
     nextLevelButton.classList.add("hide");
     playAgainButton.classList.remove("active");
@@ -333,11 +373,12 @@ function endGame() {
   }
 
   gameContainer.style.gap = "0.6";
+  gameContainer.style.display = "block";
   gameContainer.innerHTML = winningHTML;
 }
 
 startButton.addEventListener("mouseenter", () => {
-  soundClickCard.play();
+  clickCardSound.play();
 });
 
 startButton.addEventListener("click", () => {
@@ -372,12 +413,32 @@ btnExitAll.forEach((button) => {
   });
 });
 
-const stopGame = () => {
+btnEscape.addEventListener("click", buttonSound.play());
+
+btnContinue.addEventListener("click", () => {
+  containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
+  isContinuing = true;
+  bgSound.play();
+  initializeGame(currentTime);
+});
+
+stopButton.addEventListener("click", () => {
   bgSound.pause();
-  isFinished = true;
-  document.querySelector(".container-card-exit").style.transition = "none";
-  document.querySelector(".container-card-exit").style.transform =
-    "translate(-50%, -50%) scale(0)";
+  buttonSound.play();
+  containerCardExit.style.transform = "translate(-50%, -50%) scale(1)";
+  clearInterval(interval);
+  currentTime = tempTime;
+});
+const actionCancel = () => {
+  bgSound.pause();
+  bgSound.currentTime = 0;
+  isFinished = false;
+  firstCard = false;
+  secondCard = false;
+  curLevel = 1;
+  levels.innerText = `Cấp độ: ${curLevel}`;
+  containerCardExit.style.transition = "none";
+  containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
   overlay.style.opacity = "0";
   overlay.style.pointerEvents = "none";
   overlay.style.left = "0";
@@ -389,33 +450,20 @@ const stopGame = () => {
   clearInterval(interval);
 };
 
-const wrapperAction = () => {
-  buttonSound.play();
-  document.querySelector(".container-card-exit").style.transform =
-    "translate(-50%, -50%) scale(1)";
-  clearInterval(interval);
-  currentTime = tempTime;
-};
-const actionContinue = () => {
-  isContinuing = true;
-  initializeGame(currentTime);
-};
+btnCancel.addEventListener("click", actionCancel);
+btnEscape.addEventListener("click", actionCancel);
 
-const resetGame = () => {
-  document.querySelector(".container-card-exit").style.transform =
-    "translate(-50%, -50%) scale(0)";
+btnReset.addEventListener("click", () => {
+  containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
   isFinished = false;
+  firstCard = false;
+  secondCard = false;
   curLevel = 1;
   buttonSound.play();
   clearInterval(interval);
   initializeGame();
   levels.innerText = `Cấp độ: ${curLevel}`;
   nextLevelButton.classList.remove("hide");
-};
-
-btnContinue.addEventListener("click", actionContinue);
-stopButton.addEventListener("click", wrapperAction);
-btnCancle.addEventListener("click", stopGame);
-btnReset.addEventListener("click", resetGame);
+});
 
 /* Source code was created by CDP Team - Cuộc thi tìm kiếm tài năng JS */
