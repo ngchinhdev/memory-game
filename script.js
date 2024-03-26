@@ -1,27 +1,30 @@
 /* Source code was created by CDP Team - Cuộc thi tìm kiếm tài năng JS */
+
 const levels = document.getElementById("level");
 const timeValue = document.getElementById("time");
-const startButton = document.getElementById("start");
-const stopButton = document.getElementById("stop");
-const nextLevelButton = document.getElementById("next-level");
-const playAgainButton = document.getElementById("play-again");
+const containerCardExit = document.querySelector(".container-card-exit");
 const gameContainer = document.querySelector(".game-container");
 const result = document.getElementById("result");
 const controls = document.querySelector(".controls-container");
-const btnContinue = document.getElementById("btn-continue");
 const fireworks = document.querySelector(".fire");
 const wrap = document.querySelector(".wrapper");
 const btnCancel = document.getElementById("btn-cancel");
 const overlay = document.getElementById("overlay");
+
+const startButton = document.getElementById("start");
+const stopButton = document.getElementById("stop");
+const nextLevelButton = document.getElementById("next-level");
+const playAgainButton = document.getElementById("play-again");
+const btnContinue = document.getElementById("btn-continue");
 const btnExitAll = document.querySelectorAll(".btn-exit");
 const btnReset = document.getElementById("btn-reset");
 
 const buttonSound = document.getElementById("clickSound");
 const bgSound = document.getElementById("bg-sound");
-const soundClickCard = document.getElementById("click-card");
+const clickCardSound = document.getElementById("click-card");
 const winSound = document.getElementById("winning");
 const loseSound = document.getElementById("lose-game");
-const clapping = document.getElementById("clapping");
+const clappingSound = document.getElementById("clapping");
 
 let maxLevel = 5;
 let curLevel = 1;
@@ -101,9 +104,10 @@ function stopClickOtherCards(isStop) {
 
 function initializeGame(remainingTime) {
   gameContainer.style.display = "grid";
+  timeValue.innerHTML = `<span>Thời gian: </span>00:00`;
   tempTime = remainingTime || timeEachLevel[curLevel];
   if (isContinuing) {
-    document.querySelector(".container-card-exit").style.transform =
+    containerCardExit.style.transform =
       "translate(-50%, -50%) scale(0)";
     isContinuing = false;
     interval = setInterval(() => {
@@ -143,6 +147,7 @@ function initializeGame(remainingTime) {
 
 function initializeCards(level) {
   gameContainer.style.display = 'grid';
+  timeValue.innerHTML = `<span>Thời gian: </span>00:00`;
   result.innerText = "";
   winCount = 0;
   let cardValues = generateRandom(level);
@@ -211,7 +216,7 @@ function timeGenerator(time) {
 }
 
 function onCardClick(card) {
-  soundClickCard.play();
+  clickCardSound.play();
   if (!card.classList.contains("matched")) {
     card.classList.add("flipped");
     if (!firstCard) {
@@ -314,7 +319,7 @@ function winGame() {
   bgSound.currentTime = 0;
   winSound.play();
   if (curLevel === maxLevel) {
-    clapping.play();
+    clappingSound.play();
   }
   clearInterval(interval);
   const fireworksHTML = `
@@ -357,7 +362,7 @@ function winGame() {
 }
 
 startButton.addEventListener("mouseenter", () => {
-  soundClickCard.play();
+  clickCardSound.play();
 });
 
 startButton.addEventListener("click", () => {
@@ -398,7 +403,7 @@ btnContinue.addEventListener("click", () => {
     bgSound.play();
     initializeGame(currentTime);
   } else {
-    document.querySelector(".container-card-exit").style.transform =
+    containerCardExit.style.transform =
       "translate(-50%, -50%) scale(0)";
   }
 });
@@ -406,7 +411,7 @@ btnContinue.addEventListener("click", () => {
 stopButton.addEventListener("click", () => {
   bgSound.pause();
   buttonSound.play();
-  document.querySelector(".container-card-exit").style.transform =
+  containerCardExit.style.transform =
     "translate(-50%, -50%) scale(1)";
   clearInterval(interval);
   currentTime = tempTime;
@@ -416,8 +421,8 @@ btnCancel.addEventListener("click", () => {
   bgSound.pause();
   bgSound.currentTime = 0;
   isFinished = true;
-  document.querySelector(".container-card-exit").style.transition = "none";
-  document.querySelector(".container-card-exit").style.transform =
+  containerCardExit.style.transition = "none";
+  containerCardExit.style.transform =
     "translate(-50%, -50%) scale(0)";
   overlay.style.opacity = "0";
   overlay.style.pointerEvents = "none";
@@ -431,7 +436,7 @@ btnCancel.addEventListener("click", () => {
 });
 
 btnReset.addEventListener("click", () => {
-  document.querySelector(".container-card-exit").style.transform =
+  containerCardExit.style.transform =
     "translate(-50%, -50%) scale(0)";
   isFinished = false;
   firstCard = false;
