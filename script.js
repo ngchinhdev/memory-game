@@ -78,7 +78,7 @@ const identifyEachLevel = {
 };
 
 const timeEachLevel = {
-  1: 10,
+  1: 15,
   2: 60,
   3: 90,
   4: 120,
