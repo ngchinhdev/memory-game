@@ -737,6 +737,11 @@ button {
   cursor: pointer;
 }
 
+.btn-exit{
+  transition: 0.1s ease;
+  transform: scale(0);
+}
+
 
 .btn-exit,
 .btn-action {
@@ -781,7 +786,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.3s ease;
   transform: translate(-50%, -50%) scale(0);
 }
 
@@ -799,7 +803,7 @@ button {
 }
 
 .card-exit button:nth-child(2) {
-  transform: translateY(-40px);
+  transform: translateY(-40px) scale(0);
 }
 
 

@@ -417,6 +417,9 @@ btnEscape.addEventListener("click", buttonSound.play());
 
 btnContinue.addEventListener("click", () => {
   containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
+  btnCancel.style.transform = "scale(0)";
+  btnReset.style.transform = "scale(0)";
+  btnContinue.style.transform = "translateY(-40px) scale(0)"
   isContinuing = true;
   bgSound.play();
   initializeGame(currentTime);
@@ -426,10 +429,17 @@ stopButton.addEventListener("click", () => {
   bgSound.pause();
   buttonSound.play();
   containerCardExit.style.transform = "translate(-50%, -50%) scale(1)";
+  btnCancel.style.transform = "scale(1)";
+  btnReset.style.transform = "scale(1)";
+  btnContinue.style.transform = "translateY(-40px) scale(1)"
   clearInterval(interval);
   currentTime = tempTime;
 });
+
 const actionCancel = () => {
+  btnCancel.style.transform = "scale(0)";
+  btnReset.style.transform = "scale(0)";
+  btnContinue.style.transform = "translateY(-40px) scale(0)"
   bgSound.pause();
   bgSound.currentTime = 0;
   isFinished = false;
