@@ -155,8 +155,8 @@ body {
   z-index: 9999;
 }
 
-.pyro>.before,
-.pyro>.after {
+.pyro > .before,
+.pyro > .after {
   position: absolute;
   width: 7px;
   height: 7px;
@@ -170,18 +170,18 @@ body {
     0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
     0 0 #fff, 0 0 #fff, 0 0 #fff;
   -moz-animation: 1s bang ease-out infinite backwards,
-    1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+    1s gravity ease-in infinite backwards, 9s position linear infinite backwards;
   -webkit-animation: 1s bang ease-out infinite backwards,
-    1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+    1s gravity ease-in infinite backwards, 9s position linear infinite backwards;
   -o-animation: 1s bang ease-out infinite backwards,
-    1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+    1s gravity ease-in infinite backwards, 9s position linear infinite backwards;
   -ms-animation: 1s bang ease-out infinite backwards,
-    1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+    1s gravity ease-in infinite backwards, 9s position linear infinite backwards;
   animation: 1s bang ease-out infinite backwards,
-    1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+    1s gravity ease-in infinite backwards, 9s position linear infinite backwards;
 }
 
-.pyro>.after {
+.pyro > .after {
   -moz-animation-delay: 1.25s, 1.25s, 1.25s;
   -webkit-animation-delay: 1.25s, 1.25s, 1.25s;
   -o-animation-delay: 1.25s, 1.25s, 1.25s;
@@ -405,7 +405,6 @@ body {
 }
 
 @-webkit-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -438,7 +437,6 @@ body {
 }
 
 @-moz-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -471,7 +469,6 @@ body {
 }
 
 @-o-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -504,7 +501,6 @@ body {
 }
 
 @-ms-keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -537,7 +533,6 @@ body {
 }
 
 @keyframes position {
-
   0%,
   19.9% {
     margin-top: 10%;
@@ -741,7 +736,10 @@ button {
 .btn-action {
   transition: 0.8s;
   background-size: 280% auto;
-  box-shadow: 0px 0px 20px rgba(71, 184, 255, 0.5), 0px 5px 5px -1px rgba(58, 125, 233, 0.25), inset 4px 4px 8px rgba(175, 230, 255, 0.5), inset -4px -4px 8px rgba(19, 95, 216, 0.35);
+  box-shadow: 0px 0px 20px rgba(71, 184, 255, 0.5),
+    0px 5px 5px -1px rgba(58, 125, 233, 0.25),
+    inset 4px 4px 8px rgba(175, 230, 255, 0.5),
+    inset -4px -4px 8px rgba(19, 95, 216, 0.35);
 }
 
 .btn-exit,
@@ -750,7 +748,12 @@ button {
 #stop {
   font-size: 1.1em;
   color: #ffffff;
-  background-image: linear-gradient(325deg, hsla(217 100% 56% / 1) 0%, hsla(194 100% 69% / 1) 55%, hsla(217 100% 56% / 1) 90%);
+  background-image: linear-gradient(
+    325deg,
+    hsla(217 100% 56% / 1) 0%,
+    hsla(194 100% 69% / 1) 55%,
+    hsla(217 100% 56% / 1) 90%
+  );
 }
 
 .btn-exit:hover,
@@ -759,12 +762,22 @@ button {
 }
 
 #stop {
-  background-image: linear-gradient(325deg, rgb(7, 7, 7) 0%, rgb(56, 65, 67) 55%, rgb(0, 0, 0) 90%);
+  background-image: linear-gradient(
+    325deg,
+    rgb(7, 7, 7) 0%,
+    rgb(56, 65, 67) 55%,
+    rgb(0, 0, 0) 90%
+  );
 }
 
 #next-level,
 #play-again {
-  background-image: linear-gradient(325deg, rgb(12, 181, 12) 0%, rgb(21, 255, 68) 55%, rgb(12, 181, 12) 90%);
+  background-image: linear-gradient(
+    325deg,
+    rgb(12, 181, 12) 0%,
+    rgb(21, 255, 68) 55%,
+    rgb(12, 181, 12) 90%
+  );
 }
 
 .container-card-exit {
@@ -798,7 +811,6 @@ button {
 .card-exit button:nth-child(2) {
   transform: translateY(-40px);
 }
-
 
 .wrap-action-win {
   display: flex;
@@ -938,30 +950,33 @@ img {
 }
 
 @keyframes animate {
-
   0%,
   100% {
-    clip-path: polygon(0 43%,
-        15% 43%,
-        22% 45%,
-        40% 60%,
-        54% 63%,
-        81% 58%,
-        100% 47%,
-        99% 100%,
-        0% 100%);
+    clip-path: polygon(
+      0 43%,
+      15% 43%,
+      22% 45%,
+      40% 60%,
+      54% 63%,
+      81% 58%,
+      100% 47%,
+      99% 100%,
+      0% 100%
+    );
   }
 
   50% {
-    clip-path: polygon(0 60%,
-        18% 66%,
-        34% 67%,
-        51% 62%,
-        70% 48%,
-        83% 43%,
-        100% 41%,
-        99% 100%,
-        0% 100%);
+    clip-path: polygon(
+      0 60%,
+      18% 66%,
+      34% 67%,
+      51% 62%,
+      70% 48%,
+      83% 43%,
+      100% 41%,
+      99% 100%,
+      0% 100%
+    );
   }
 }
 

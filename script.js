@@ -100,15 +100,14 @@ function stopClickOtherCards(isStop) {
       card.style.pointerEvents = "auto";
     });
   }
-};
+}
 
 function initializeGame(remainingTime) {
   gameContainer.style.display = "grid";
   timeValue.innerHTML = `<span>Thời gian: </span>00:00`;
   tempTime = remainingTime || timeEachLevel[curLevel];
   if (isContinuing) {
-    containerCardExit.style.transform =
-      "translate(-50%, -50%) scale(0)";
+    containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
     isContinuing = false;
     interval = setInterval(() => {
       timeGenerator(tempTime);
@@ -146,7 +145,7 @@ function initializeGame(remainingTime) {
 }
 
 function initializeCards(level) {
-  gameContainer.style.display = 'grid';
+  gameContainer.style.display = "grid";
   timeValue.innerHTML = `<span>Thời gian: </span>00:00`;
   result.innerText = "";
   winCount = 0;
@@ -329,25 +328,31 @@ function winGame() {
     </div>
   `;
   const winningHTML = `
-    <div class="e-card playing">
-        <div class="image"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="infotop">
+  <div class="e-card playing">
+      <div class="image"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="infotop">
           <svg xmlns="http://www.w3org/2000/svg" height="69" width="70" viewBox="0 0 576 512">
-            <path fill="#ffffff" d="M400 0H176c-26.5 0-48.1 21.8-47.1 48.2c.2 5.3 .4 10.6 .7 15.8H24C10.7 64 0 74.7 0 88c0 92.6 33.5 157 78.5 200.7c44.3 43.1 98.3 64.8 138.1 75.8c23.4 6.5 39.4 26 39.4 45.6c0 20.9-17 37.9-37.9 37.9H192c-17.7 0-32 14.3-32 32s14.3 32 32 32H384c17.7 0 32-14.3 32-32s-14.3-32-32-32H357.9C337 448 320 431 320 410.1c0-19.6 15.9-39.2 39.4-45.6c39.9-11 93.9-32.7 138.2-75.8C542.5 245 576 180.6 576 88c0-13.3-10.7-24-24-24H446.4c.3-5.2 .5-10.4 .7-15.8C448.1 21.8 426.5 0 400 0zM48.9 112h84.4c9.1 90.1 29.2 150.3 51.9 190.6c-24.9-11-50.8-26.5-73.2-48.3c-32-31.1-58-76-63-142.3zM464.1 254.3c-22.4 21.8-48.3 37.3-73.2 48.3c22.7-40.3 42.8-100.5 51.9-190.6h84.4c-5.1 66.3-31.1 111.2-63 142.3z"/>
-        </svg>
-        <br>      
+              <path fill="#ffffff" d="M400 0H176c-26.5 0-48.1 21.8-47.1 48.2c.2 5.3 .4 10.6 .7 15.8H24C10.7 64 0 74.7 0 88c0 92.6 33.5 157 78.5 200.7c44.3 43.1 98.3 64.8 138.1 75.8c23.4 6.5 39.4 26 39.4 45.6c0 20.9-17 37.9-37.9 37.9H192c-17.7 0-32 14.3-32 32s14.3 32 32 32H384c17.7 0 32-14.3 32-32s-14.3-32-32-32H357.9C337 448 320 431 320 410.1c0-19.6 15.9-39.2 39.4-45.6c39.9-11 93.9-32.7 138.2-75.8C542.5 245 576 180.6 576 88c0-13.3-10.7-24-24-24H446.4c.3-5.2 .5-10.4 .7-15.8C448.1 21.8 426.5 0 400 0zM48.9 112h84.4c9.1 90.1 29.2 150.3 51.9 190.6c-24.9-11-50.8-26.5-73.2-48.3c-32-31.1-58-76-63-142.3zM464.1 254.3c-22.4 21.8-48.3 37.3-73.2 48.3c22.7-40.3 42.8-100.5 51.9-190.6h84.4c-5.1 66.3-31.1 111.2-63 142.3z"/>
+          </svg>
+          <br>      
           XIN CHÚC MỪNG
-        <br>
-        <div class="name"> ${curLevel < maxLevel ? `<h3>BẠN ĐÃ THẮNG MÀN ${curLevel}</h3>` : `<h3>BẠN ĐÃ THẮNG TRÒ CHƠI</h3>`}</div>
-        <br>      
+          <br>
+          <div class="name"> ${
+            curLevel < maxLevel
+              ? `<h3>BẠN ĐÃ THẮNG MÀN ${curLevel}</h3>`
+              : `<h3>BẠN ĐÃ THẮNG TRÒ CHƠI</h3>`
+          }</div>
+          <br>      
           ${curLevel < maxLevel ? `🎉🎉` : `🎉🎉🎉🎉🎉`}
-        <br>
-    </div>
-</div>
-`;
+          <br>
+      </div>
+      <dotlottie-player src="https://lottie.host/7bf131eb-969a-4b5b-ad8f-959e588ffcfb/H6JoFt87DY.json" background="transparent" speed="1" style="width: 100%; height: 350px;" loop autoplay></dotlottie-player>
+  </div>
+  `;
+
   if (curLevel < maxLevel) {
     nextLevelButton.classList.remove("active");
   } else {
@@ -403,16 +408,14 @@ btnContinue.addEventListener("click", () => {
     bgSound.play();
     initializeGame(currentTime);
   } else {
-    containerCardExit.style.transform =
-      "translate(-50%, -50%) scale(0)";
+    containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
   }
 });
 
 stopButton.addEventListener("click", () => {
   bgSound.pause();
   buttonSound.play();
-  containerCardExit.style.transform =
-    "translate(-50%, -50%) scale(1)";
+  containerCardExit.style.transform = "translate(-50%, -50%) scale(1)";
   clearInterval(interval);
   currentTime = tempTime;
 });
@@ -422,8 +425,7 @@ btnCancel.addEventListener("click", () => {
   bgSound.currentTime = 0;
   isFinished = true;
   containerCardExit.style.transition = "none";
-  containerCardExit.style.transform =
-    "translate(-50%, -50%) scale(0)";
+  containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
   overlay.style.opacity = "0";
   overlay.style.pointerEvents = "none";
   overlay.style.left = "0";
@@ -436,8 +438,7 @@ btnCancel.addEventListener("click", () => {
 });
 
 btnReset.addEventListener("click", () => {
-  containerCardExit.style.transform =
-    "translate(-50%, -50%) scale(0)";
+  containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
   isFinished = false;
   firstCard = false;
   secondCard = false;
