@@ -105,7 +105,6 @@ function stopClickOtherCards(isStop) {
 
 function initializeGame(remainingTime) {
   gameContainer.style.display = "grid";
-  timeValue.innerHTML = `<span>Thời gian: </span>00:00`;
   if (isContinuing) {
     tempTime = remainingTime;
     containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
@@ -351,11 +350,10 @@ function winGame() {
         <br>      
           XIN CHÚC MỪNG
         <br>
-        <div class="name"> ${
-          curLevel < maxLevel
-            ? `<h3>BẠN ĐÃ THẮNG MÀN ${curLevel}</h3>`
-            : `<h3>BẠN ĐÃ THẮNG TRÒ CHƠI</h3>`
-        }</div>
+        <div class="name"> ${curLevel < maxLevel
+      ? `<h3>BẠN ĐÃ THẮNG MÀN ${curLevel}</h3>`
+      : `<h3>BẠN ĐÃ THẮNG TRÒ CHƠI</h3>`
+    }</div>
         <br>      
           ${curLevel < maxLevel ? `🎉🎉` : `🎉🎉🎉🎉🎉`}
         <br>
@@ -419,7 +417,7 @@ btnContinue.addEventListener("click", () => {
   containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
   btnCancel.style.transform = "scale(0)";
   btnReset.style.transform = "scale(0)";
-  btnContinue.style.transform = "translateY(-40px) scale(0)"
+  btnContinue.style.transform = "translateY(-40px) scale(0)";
   isContinuing = true;
   bgSound.play();
   initializeGame(currentTime);
@@ -431,7 +429,7 @@ stopButton.addEventListener("click", () => {
   containerCardExit.style.transform = "translate(-50%, -50%) scale(1)";
   btnCancel.style.transform = "scale(1)";
   btnReset.style.transform = "scale(1)";
-  btnContinue.style.transform = "translateY(-40px) scale(1)"
+  btnContinue.style.transform = "translateY(-40px) scale(1)";
   clearInterval(interval);
   currentTime = tempTime;
 });
@@ -439,7 +437,7 @@ stopButton.addEventListener("click", () => {
 const actionCancel = () => {
   btnCancel.style.transform = "scale(0)";
   btnReset.style.transform = "scale(0)";
-  btnContinue.style.transform = "translateY(-40px) scale(0)"
+  btnContinue.style.transform = "translateY(-40px) scale(0)";
   bgSound.pause();
   bgSound.currentTime = 0;
   isFinished = false;
