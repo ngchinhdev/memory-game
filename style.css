@@ -155,8 +155,8 @@ body {
   z-index: 9999;
 }
 
-.pyro > .before,
-.pyro > .after {
+.pyro>.before,
+.pyro>.after {
   position: absolute;
   width: 7px;
   height: 7px;
@@ -181,7 +181,7 @@ body {
     1s gravity ease-in infinite backwards, 9s position linear infinite backwards;
 }
 
-.pyro > .after {
+.pyro>.after {
   -moz-animation-delay: 1.25s, 1.25s, 1.25s;
   -webkit-animation-delay: 1.25s, 1.25s, 1.25s;
   -o-animation-delay: 1.25s, 1.25s, 1.25s;
@@ -405,6 +405,7 @@ body {
 }
 
 @-webkit-keyframes position {
+
   0%,
   19.9% {
     margin-top: 10%;
@@ -437,6 +438,7 @@ body {
 }
 
 @-moz-keyframes position {
+
   0%,
   19.9% {
     margin-top: 10%;
@@ -469,6 +471,7 @@ body {
 }
 
 @-o-keyframes position {
+
   0%,
   19.9% {
     margin-top: 10%;
@@ -501,6 +504,7 @@ body {
 }
 
 @-ms-keyframes position {
+
   0%,
   19.9% {
     margin-top: 10%;
@@ -533,6 +537,7 @@ body {
 }
 
 @keyframes position {
+
   0%,
   19.9% {
     margin-top: 10%;
@@ -598,8 +603,7 @@ body {
 }
 
 #level {
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: 1.4rem;
   margin-right: 3rem;
 }
 
@@ -732,7 +736,7 @@ button {
   cursor: pointer;
 }
 
-.btn-exit{
+.btn-exit {
   transition: 0.1s ease;
   transform: scale(0);
 }
@@ -756,12 +760,10 @@ button {
 #stop {
   font-size: 1.1em;
   color: #ffffff;
-  background-image: linear-gradient(
-    325deg,
-    hsla(217 100% 56% / 1) 0%,
-    hsla(194 100% 69% / 1) 55%,
-    hsla(217 100% 56% / 1) 90%
-  );
+  background-image: linear-gradient(325deg,
+      hsla(217 100% 56% / 1) 0%,
+      hsla(194 100% 69% / 1) 55%,
+      hsla(217 100% 56% / 1) 90%);
 }
 
 .btn-exit:hover,
@@ -770,22 +772,18 @@ button {
 }
 
 #stop {
-  background-image: linear-gradient(
-    325deg,
-    rgb(7, 7, 7) 0%,
-    rgb(56, 65, 67) 55%,
-    rgb(0, 0, 0) 90%
-  );
+  background-image: linear-gradient(325deg,
+      rgb(7, 7, 7) 0%,
+      rgb(56, 65, 67) 55%,
+      rgb(0, 0, 0) 90%);
 }
 
 #next-level,
 #play-again {
-  background-image: linear-gradient(
-    325deg,
-    rgb(12, 181, 12) 0%,
-    rgb(21, 255, 68) 55%,
-    rgb(12, 181, 12) 90%
-  );
+  background-image: linear-gradient(325deg,
+      rgb(12, 181, 12) 0%,
+      rgb(21, 255, 68) 55%,
+      rgb(12, 181, 12) 90%);
 }
 
 .container-card-exit {
@@ -957,33 +955,30 @@ img {
 }
 
 @keyframes animate {
+
   0%,
   100% {
-    clip-path: polygon(
-      0 43%,
-      15% 43%,
-      22% 45%,
-      40% 60%,
-      54% 63%,
-      81% 58%,
-      100% 47%,
-      99% 100%,
-      0% 100%
-    );
+    clip-path: polygon(0 43%,
+        15% 43%,
+        22% 45%,
+        40% 60%,
+        54% 63%,
+        81% 58%,
+        100% 47%,
+        99% 100%,
+        0% 100%);
   }
 
   50% {
-    clip-path: polygon(
-      0 60%,
-      18% 66%,
-      34% 67%,
-      51% 62%,
-      70% 48%,
-      83% 43%,
-      100% 41%,
-      99% 100%,
-      0% 100%
-    );
+    clip-path: polygon(0 60%,
+        18% 66%,
+        34% 67%,
+        51% 62%,
+        70% 48%,
+        83% 43%,
+        100% 41%,
+        99% 100%,
+        0% 100%);
   }
 }
 

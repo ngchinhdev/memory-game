@@ -247,7 +247,7 @@ function handleNextLevel() {
   winSound.pause();
   winSound.currentTime = 0;
   curLevel += 1;
-  levels.innerText = `Cấp độ: ${curLevel}`;
+  levels.innerHTML = `<span>Cấp độ:</span> ${curLevel}`;
   initializeCards(curLevel);
 
   tempTime = timeEachLevel[curLevel];
@@ -302,9 +302,9 @@ function loseGame() {
       <div class="wave lost"></div>
       <div class="infotop">
       <div class="lose-game-img">
-      <img src="./images/game-over.png" alt="">
-    </div>
-        ĐÁNG TIẾC QUÁ 
+        <img src="./images/game-over.png" alt="">
+      </div>
+        TIẾC QUÁ 
       <br>
       <div class="name"> <h3>⏱️ ĐÃ HẾT THỜI GIAN ⏱️</h3></div>
       <br>
@@ -387,7 +387,7 @@ startButton.addEventListener("click", () => {
   setTimeout(() => {
     initializeGame();
     curLevel = 1;
-    levels.innerText = `Cấp độ: ${curLevel}`;
+    levels.innerHTML = `<span>Cấp độ:</span> ${curLevel}`;
   }, 400);
 });
 
@@ -403,7 +403,7 @@ playAgainButton.addEventListener("click", () => {
   buttonSound.play();
   clearInterval(interval);
   initializeGame();
-  levels.innerText = `Cấp độ: ${curLevel}`;
+  levels.innerHTML = `<span>Cấp độ:</span> ${curLevel}`;
   nextLevelButton.classList.remove("hide");
 });
 
@@ -412,8 +412,6 @@ btnExitAll.forEach((button) => {
     buttonSound.play();
   });
 });
-
-btnEscape.addEventListener("click", buttonSound.play());
 
 btnContinue.addEventListener("click", () => {
   containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
@@ -436,7 +434,7 @@ stopButton.addEventListener("click", () => {
   currentTime = tempTime;
 });
 
-const actionCancel = () => {
+btnCancel.addEventListener("click", () => {
   btnCancel.style.transform = "scale(0)";
   btnReset.style.transform = "scale(0)";
   btnContinue.style.transform = "translateY(-40px) scale(0)";
@@ -446,7 +444,7 @@ const actionCancel = () => {
   firstCard = false;
   secondCard = false;
   curLevel = 1;
-  levels.innerText = `Cấp độ: ${curLevel}`;
+  levels.innerHTML = `<span>Cấp độ:</span> ${curLevel}`;
   containerCardExit.style.transition = "none";
   containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
   overlay.style.opacity = "0";
@@ -458,10 +456,34 @@ const actionCancel = () => {
   playAgainButton.classList.add("active");
   startButton.classList.remove("hide");
   clearInterval(interval);
-};
+});
 
-btnCancel.addEventListener("click", actionCancel);
-btnEscape.addEventListener("click", actionCancel);
+btnEscape.addEventListener("click", () => {
+  winSound.pause();
+  winSound.currentTime = 0;
+  buttonSound.play();
+  btnCancel.style.transform = "scale(0)";
+  btnReset.style.transform = "scale(0)";
+  btnContinue.style.transform = "translateY(-40px) scale(0)";
+  bgSound.pause();
+  bgSound.currentTime = 0;
+  isFinished = false;
+  firstCard = false;
+  secondCard = false;
+  curLevel = 1;
+  levels.innerHTML = `<span>Cấp độ:</span> ${curLevel}`;
+  containerCardExit.style.transition = "none";
+  containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
+  overlay.style.opacity = "0";
+  overlay.style.pointerEvents = "none";
+  overlay.style.left = "0";
+  fireworks.innerHTML = "";
+  controls.classList.remove("hide");
+  stopButton.classList.add("hide");
+  playAgainButton.classList.add("active");
+  startButton.classList.remove("hide");
+  clearInterval(interval);
+});
 
 btnReset.addEventListener("click", () => {
   containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
@@ -472,7 +494,7 @@ btnReset.addEventListener("click", () => {
   buttonSound.play();
   clearInterval(interval);
   initializeGame();
-  levels.innerText = `Cấp độ: ${curLevel}`;
+  levels.innerHTML = `<span>Cấp độ:</span> ${curLevel}`;
   nextLevelButton.classList.remove("hide");
 });
 
