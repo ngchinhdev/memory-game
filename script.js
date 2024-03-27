@@ -6,6 +6,7 @@ const containerCardExit = document.querySelector(".container-card-exit");
 const gameContainer = document.querySelector(".game-container");
 const result = document.getElementById("result");
 const controls = document.querySelector(".controls-container");
+const btnEscape = document.getElementById("btn-escape");
 const fireworks = document.querySelector(".fire");
 const wrap = document.querySelector(".wrapper");
 const btnCancel = document.getElementById("btn-cancel");
@@ -105,8 +106,8 @@ function stopClickOtherCards(isStop) {
 function initializeGame(remainingTime) {
   gameContainer.style.display = "grid";
   timeValue.innerHTML = `<span>Thời gian: </span>00:00`;
-  tempTime = remainingTime || timeEachLevel[curLevel];
   if (isContinuing) {
+    tempTime = remainingTime;
     containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
     isContinuing = false;
     interval = setInterval(() => {
@@ -114,6 +115,7 @@ function initializeGame(remainingTime) {
       tempTime -= 1;
     }, 1000);
   } else {
+    tempTime = timeEachLevel[curLevel];
     isFinished = false;
     seconds = 0;
     minutes = 0;
@@ -130,6 +132,7 @@ function initializeGame(remainingTime) {
       gameContainer.style.pointerEvents = "none";
       controls.classList.add("hide");
       stopButton.classList.remove("hide");
+      btnEscape.classList.add("hide");
       startButton.classList.add("hide");
       playAgainButton.classList.add("active");
       nextLevelButton.classList.add("active");
@@ -146,6 +149,8 @@ function initializeGame(remainingTime) {
 
 function initializeCards(level) {
   gameContainer.style.display = "grid";
+  stopButton.classList.remove("hide");
+  btnEscape.classList.add("hide");
   timeValue.innerHTML = `<span>Thời gian: </span>00:00`;
   result.innerText = "";
   winCount = 0;
@@ -247,12 +252,13 @@ function handleNextLevel() {
   initializeCards(curLevel);
 
   tempTime = timeEachLevel[curLevel];
+  currentTime = tempTime;
   interval = setInterval(() => {
     timeGenerator(tempTime);
     tempTime -= 1;
   }, 1000);
 
-  if (curLevel < maxLevel) {
+  if (curLevel <= maxLevel) {
     nextLevelButton.classList.add("active");
   }
 }
@@ -306,13 +312,18 @@ function loseGame() {
   </div>
 </div>
 `;
+
   playAgainButton.classList.remove("active");
+  btnEscape.classList.remove("hide");
+  stopButton.classList.add("hide");
   gameContainer.style.gap = "0.6";
   gameContainer.style.display = "block";
   gameContainer.innerHTML = loseHTML;
 }
 
 function winGame() {
+  btnEscape.classList.remove("hide");
+  stopButton.classList.add("hide");
   isFinished = true;
   bgSound.pause();
   bgSound.currentTime = 0;
@@ -339,13 +350,13 @@ function winGame() {
           </svg>
           <br>      
           XIN CHÚC MỪNG
-          <br>
-          <div class="name"> ${
-            curLevel < maxLevel
-              ? `<h3>BẠN ĐÃ THẮNG MÀN ${curLevel}</h3>`
-              : `<h3>BẠN ĐÃ THẮNG TRÒ CHƠI</h3>`
-          }</div>
-          <br>      
+        <br>
+        <div class="name"> ${
+          curLevel < maxLevel
+            ? `<h3>BẠN ĐÃ THẮNG MÀN ${curLevel}</h3>`
+            : `<h3>BẠN ĐÃ THẮNG TRÒ CHƠI</h3>`
+        }</div>
+        <br>      
           ${curLevel < maxLevel ? `🎉🎉` : `🎉🎉🎉🎉🎉`}
           <br>
       </div>
@@ -355,6 +366,8 @@ function winGame() {
 
   if (curLevel < maxLevel) {
     nextLevelButton.classList.remove("active");
+    btnEscape.classList.remove("hide");
+    stopButton.classList.add("hide");
   } else {
     nextLevelButton.classList.add("hide");
     playAgainButton.classList.remove("active");
@@ -402,28 +415,40 @@ btnExitAll.forEach((button) => {
   });
 });
 
+btnEscape.addEventListener("click", buttonSound.play());
+
 btnContinue.addEventListener("click", () => {
-  if (!isFinished) {
-    isContinuing = true;
-    bgSound.play();
-    initializeGame(currentTime);
-  } else {
-    containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
-  }
+  containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
+  btnCancel.style.transform = "scale(0)";
+  btnReset.style.transform = "scale(0)";
+  btnContinue.style.transform = "translateY(-40px) scale(0)"
+  isContinuing = true;
+  bgSound.play();
+  initializeGame(currentTime);
 });
 
 stopButton.addEventListener("click", () => {
   bgSound.pause();
   buttonSound.play();
   containerCardExit.style.transform = "translate(-50%, -50%) scale(1)";
+  btnCancel.style.transform = "scale(1)";
+  btnReset.style.transform = "scale(1)";
+  btnContinue.style.transform = "translateY(-40px) scale(1)"
   clearInterval(interval);
   currentTime = tempTime;
 });
 
-btnCancel.addEventListener("click", () => {
+const actionCancel = () => {
+  btnCancel.style.transform = "scale(0)";
+  btnReset.style.transform = "scale(0)";
+  btnContinue.style.transform = "translateY(-40px) scale(0)"
   bgSound.pause();
   bgSound.currentTime = 0;
-  isFinished = true;
+  isFinished = false;
+  firstCard = false;
+  secondCard = false;
+  curLevel = 1;
+  levels.innerText = `Cấp độ: ${curLevel}`;
   containerCardExit.style.transition = "none";
   containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";
   overlay.style.opacity = "0";
@@ -435,7 +460,10 @@ btnCancel.addEventListener("click", () => {
   playAgainButton.classList.add("active");
   startButton.classList.remove("hide");
   clearInterval(interval);
-});
+};
+
+btnCancel.addEventListener("click", actionCancel);
+btnEscape.addEventListener("click", actionCancel);
 
 btnReset.addEventListener("click", () => {
   containerCardExit.style.transform = "translate(-50%, -50%) scale(0)";

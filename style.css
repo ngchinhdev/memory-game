@@ -732,6 +732,12 @@ button {
   cursor: pointer;
 }
 
+.btn-exit{
+  transition: 0.1s ease;
+  transform: scale(0);
+}
+
+
 .btn-exit,
 .btn-action {
   transition: 0.8s;
@@ -742,6 +748,8 @@ button {
     inset -4px -4px 8px rgba(19, 95, 216, 0.35);
 }
 
+
+#btn-escape,
 .btn-exit,
 #play-again,
 #next-level,
@@ -791,7 +799,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.3s ease;
   transform: translate(-50%, -50%) scale(0);
 }
 
@@ -809,7 +816,7 @@ button {
 }
 
 .card-exit button:nth-child(2) {
-  transform: translateY(-40px);
+  transform: translateY(-40px) scale(0);
 }
 
 .wrap-action-win {
